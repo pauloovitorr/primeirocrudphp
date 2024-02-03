@@ -1,6 +1,40 @@
 <?php 
 
+session_start();
+
 include_once('./conexao.php');
+
+if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_POST['senha']))
+{
+  $email = $conecte->escape_string($_POST['email']);
+  $senha = $conecte->escape_string($_POST['senha']);
+
+  $sql = "SELECT * FROM users WHERE email=?";
+
+  $dados = $conecte->prepare($sql);
+
+  $dados->bind_param('s', $email);
+
+  $dados->execute();
+
+  $resultad = $dados->get_result();
+
+  if($resultad->num_rows > 0)
+  {
+    $user =  $resultad->fetch_assoc();
+
+    if($senha === $user['senha'])
+    {
+      echo 'Deu bom';
+    }
+    else
+    {
+      echo 'senha invalida';
+    }
+  }
+
+
+}
 
 ?>
 
@@ -33,7 +67,7 @@ include_once('./conexao.php');
         <div class="col-md-6 order-md-2">
           <h3>Faça o Login para continuar</h3>
           <!-- Formulário -->
-          <form>
+          <form method="post">
             <!-- E-mail -->
             <div class="form-floating mb-3">
               <input
@@ -50,15 +84,11 @@ include_once('./conexao.php');
               <input
                 type="password"
                 class="form-control"
-                id="password"
-                name="password"
+                id="senha"
+                name="senha"
                 placeholder="Insira sua senha"
               />
-              <label for="password" class="form-label">Insira sua senha</label>
-            </div>
-            <div class="form-check mb-3">
-              <input type="checkbox" class="form-check-input" id="mc" />
-              <label for="mc" class="form-check-label">Lembrar de mim</label>
+              <label for="senha" class="form-label">Insira sua senha</label>
             </div>
             <!-- Botão -->
             <div class="col-12" id="enviar">

@@ -22,8 +22,10 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && !empty($_POST['nome']) && !empty($_PO
   }
   else
   {
-    echo 'usuário inserido com sucesso';
+    header('Location:'. '../index.php');
   }
+
+  $conecte->close();
   
 }
 
@@ -106,7 +108,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && !empty($_POST['nome']) && !empty($_PO
           </div>
           <!-- Redirecionamento -->
           <div class="col-12" id="link_container">
-            <a href="../register/cad.php">Já possuo cadastro</a>
+            <a href="../index.php">Já possuo cadastro</a>
           </div>
         </div>
       </div>
