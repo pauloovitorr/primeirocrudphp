@@ -1,3 +1,20 @@
+<?php 
+
+session_start();
+
+if(isset($_SESSION['email']) && !empty($_SESSION['email']))
+{
+    echo $_SESSION['email'];
+}
+else
+{
+    unset($_SESSION['email']);
+    header('Location:'.'../index.php');
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -4,6 +4,9 @@ session_start();
 
 include_once('./conexao.php');
 
+$erroSenha = '';
+$erroEmail = '';
+
 if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_POST['senha']))
 {
   $email = $conecte->escape_string($_POST['email']);
@@ -25,12 +28,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_
 
     if($senha === $user['senha'])
     {
-      echo 'Deu bom';
+      $_SESSION['email'] = $email;
+      header('Location:register/home.php');
     }
     else
     {
-      echo 'senha invalida';
+      unset($_SESSION['email']);
+      $erroSenha = 'Senha inválida';
+      
     }
+  }
+  else
+  {
+    $erroEmail = 'Email não encontrado';
   }
 
 
@@ -78,6 +88,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_
                 placeholder="Insira seu e-mail"
               />
               <label for="email" class="form-label">Insira seu e-mail</label>
+              <p class="text-danger"><?php echo $erroEmail != '' ? $erroEmail:'' ?></p>
             </div>
             <!-- Senha -->
             <div class="form-floating mb-3">
@@ -89,6 +100,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_
                 placeholder="Insira sua senha"
               />
               <label for="senha" class="form-label">Insira sua senha</label>
+              <p class="text-danger"><?php echo $erroSenha != '' ? $erroSenha:'' ?></p>
             </div>
             <!-- Botão -->
             <div class="col-12" id="enviar">
