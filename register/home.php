@@ -2,6 +2,8 @@
 
 session_start();
 
+include_once('../conexao.php');
+
 if (!isset($_SESSION['email'])) {
     unset($_SESSION['email']);
     header('Location:' . '../index.php');
@@ -29,10 +31,11 @@ if (!isset($_SESSION['email'])) {
 
 <body>
 
-    <h1 class="text-center mt-4">Lista de usuários</h1>
+    
 
 
     <div class="container col-11 col-md-9" id="form_container">
+    <h1 class="text-center mt-4">Lista de usuários</h1>
 
         <table class="table caption-top">
             <caption>Tabela de usuários</caption>
@@ -64,8 +67,9 @@ if (!isset($_SESSION['email'])) {
                     <td>@twitter</td>
                 </tr>
             </tbody>
+            
         </table>
-
+        <a class="btn btn-primary" href="./cad_usuario.php">Cadastrar</a>
     </div>
 
 </body>
