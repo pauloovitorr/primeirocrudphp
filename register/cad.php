@@ -10,9 +10,11 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && !empty($_POST['nome']) && !empty($_PO
 
   $sql = "INSERT INTO users (nome,email,senha) VALUES (?,?,?)";
 
+  $nova_senha = password_hash($senha, PASSWORD_BCRYPT);
+
   $dados = $conecte->prepare($sql);
 
-  $dados->bind_param('sss', $nome,$email,$senha);
+  $dados->bind_param('sss', $nome,$email,$nova_senha);
 
   $dados->execute();
 

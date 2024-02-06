@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_
   {
     $user =  $resultad->fetch_assoc();
 
-    if($senha === $user['senha'])
+    if(password_verify($senha, $user['senha']))
     {
       $_SESSION['email'] = $email;
       header('Location:register/home.php');
