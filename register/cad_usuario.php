@@ -15,7 +15,22 @@ if($_SERVER['REQUEST_METHOD']==='POST' && !empty($_POST['nome']) && !empty($_POS
     $email     = $_POST['email'];
     $telefone  = $_POST['tel'];
 
-   
+   $sql = "INSERT INTO usuarios (nome,email,telefone) VALUES (?,?,?)";
+
+   $dados = $conecte->prepare($sql);
+
+   $dados->bind_param('sss',$nome,$email,$telefone);
+
+   $dados->execute();
+
+   if($dados->error)
+   {
+     echo 'Erro ao inserir ao banco';
+   }
+   else
+   {
+    header('Location:'.'./home.php');
+   }
 }
 
 
