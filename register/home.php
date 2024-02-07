@@ -2,17 +2,24 @@
 
 session_start();
 
+
+
 include_once('../conexao.php');
+
+$dados ='';
 
 if (!isset($_SESSION['email'])) {
     unset($_SESSION['email']);
     header('Location:' . '../index.php');
 }
 
-if($_SERVER['REQUEST_METHOD']=== 'GET')
-{
-    
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $sql = "SELECT * FROM usuarios";
+
+    $dados = $conecte->query($sql);
 }
+
+$conecte->close();
 
 ?>
 
@@ -35,11 +42,11 @@ if($_SERVER['REQUEST_METHOD']=== 'GET')
 
 <body>
 
-    
+
 
 
     <div class="container col-11 col-md-9" id="form_container">
-    <h1 class="text-center mt-4">Lista de usuários</h1>
+        <h1 class="text-center mt-4">Lista de usuários</h1>
 
         <table class="table caption-top">
             <caption>Tabela de usuários</caption>
@@ -52,26 +59,25 @@ if($_SERVER['REQUEST_METHOD']=== 'GET')
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+
+                <?php
+
+                    if($dados->num_rows > 0)
+                    {
+                        while($dados_convetido = $dados->fetch_assoc())
+                        {
+                            echo '<tr>'.'<td>'.$dados_convetido['id'].'</td>';
+                            echo '<td>'.$dados_convetido['nome']. '</td>';
+                            echo '<td>'.$dados_convetido['email']. '</td>';
+                            echo '<td>'.$dados_convetido['telefone']. '</td>'.'</tr>';
+                        }
+                    }
+
+                ?>
+
+
             </tbody>
-            
+
         </table>
         <a class="btn btn-primary" href="./cad_usuario.php">Cadastrar</a>
     </div>

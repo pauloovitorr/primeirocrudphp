@@ -31,6 +31,8 @@ if($_SERVER['REQUEST_METHOD']==='POST' && !empty($_POST['nome']) && !empty($_POS
    {
     header('Location:'.'./home.php');
    }
+
+   $conecte->close();
 }
 
 
