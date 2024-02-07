@@ -4,6 +4,8 @@ session_start();
 
 include_once('../conexao.php');
 
+
+
 if (!isset($_SESSION['email'])) {
     unset($_SESSION['email']);
     header('Location:' . '../index.php');

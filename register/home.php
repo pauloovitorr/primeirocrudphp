@@ -6,7 +6,7 @@ session_start();
 
 include_once('../conexao.php');
 
-$dados ='';
+$dados = '';
 
 if (!isset($_SESSION['email'])) {
     unset($_SESSION['email']);
@@ -48,7 +48,7 @@ $conecte->close();
     <div class="container col-11 col-md-9" id="form_container">
         <h1 class="text-center mt-4">Lista de usuários</h1>
 
-        <table class="table caption-top">
+        <table class="table caption-top" style="text-align: center;" >
             <caption>Tabela de usuários</caption>
             <thead>
                 <tr>
@@ -58,22 +58,25 @@ $conecte->close();
                     <th scope="col">Telefone</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
 
                 <?php
 
-                    if($dados->num_rows > 0)
-                    {
-                        while($dados_convetido = $dados->fetch_assoc())
-                        {
-                            echo '<tr>'.'<td>'.$dados_convetido['id'].'</td>';
-                            echo '<td>'.$dados_convetido['nome']. '</td>';
-                            echo '<td>'.$dados_convetido['email']. '</td>';
-                            echo '<td>'.$dados_convetido['telefone']. '</td>'.'</tr>';
-                        }
+                if ($dados->num_rows > 0) {
+                    while ($dados_convetido = $dados->fetch_assoc()) {
+                        echo '<tr>' . '<td>' . $dados_convetido['id'] . '</td>';
+                        echo '<td>' . $dados_convetido['nome'] . '</td>';
+                        echo '<td>' . $dados_convetido['email'] . '</td>';
+                        echo '<td>' . $dados_convetido['telefone'] . '</td>';
+                        echo '<td>' . "<form action='./cad_usuario.php' method='post'><input type='hidden' name='id'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Editar'></form> .". '</td>';
+                        echo '<td>' . '<form action="" method="post"><input type="submit" class="btn btn-danger" value="Excluir"></form> .'. '</td>'.'</tr>';
+                        
                     }
+                }
 
                 ?>
+
+
 
 
             </tbody>
