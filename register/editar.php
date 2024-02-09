@@ -1,46 +1,46 @@
-<?php 
+<?php
 
 session_start();
 
 include_once('../conexao.php');
 
-
-
-if (!isset($_SESSION['email'])) {
-    unset($_SESSION['email']);
-    header('Location:' . '../index.php');
-}
-
-if($_SERVER['REQUEST_METHOD']==='POST' && !empty($_POST['nome']) && !empty($_POST['email']) && !empty($_POST['tel']))
+if(!empty($_SESSION['email']))
 {
-    $nome      = $_POST['nome'];
-    $email     = $_POST['email'];
-    $telefone  = $_POST['tel'];
+    if($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['id']))
+    {
+        $id = $conecte->escape_string($_GET['id']);
 
-   $sql = "INSERT INTO usuarios (nome,email,telefone) VALUES (?,?,?)";
+        $sql = "SELECT * FROM usuarios WHERE id= $id";
 
-   $dados = $conecte->prepare($sql);
+        $acao = $conecte->query($sql);
 
-   $dados->bind_param('sss',$nome,$email,$telefone);
+        if($acao->num_rows > 0)
+        {
+            $dados = $acao->fetch_assoc();
 
-   $dados->execute();
+        }
+    }
+    elseif($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+        $id = $conecte->escape_string($_POST['cod']);
+        $nome = $conecte->escape_string($_POST['nome']);
+        $email =  $conecte->escape_string($_POST['email']);
+        $telefone =  $conecte->escape_string($_POST['telefone']);
 
-   if($dados->error)
-   {
-     echo 'Erro ao inserir ao banco';
-   }
-   else
-   {
-    header('Location:'.'./home.php');
-   }
+        $sql = "UPDATE usuarios SET nome='$nome', email = '$email', telefone = '$telefone' WHERE id = $id";
 
-   $conecte->close();
+        $conecte->query($sql);
+
+        header('Location:./home.php');
+    }
 }
-
-if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
-
+else
+{
+    header('Location:../index.php');
+}
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -60,15 +60,18 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
 
 <body>
 
-    
-
 
     <div class="container col-8 col-md-7" id="form_container">
 
         <div class="col-md-6 order-md-1 m-0 m-auto">
-          <h3>Faça o seu Cadastro</h3>
+          <h3>Editando usuário</h3>
           <!-- Formulário -->
           <form method="post">
+
+          <!-- Input do type hidden -->
+
+          <input type="hidden" name="cod" value=<?php echo $dados['id'] ?> >
+
             <!-- Nome -->
             <div class="form-floating mb-3">
               <input
@@ -77,6 +80,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
                 id="nome"
                 name="nome"
                 placeholder="Digite seu nome"
+                value= "<?php echo $dados['nome'] ? $dados['nome'] : '' ?>"
               />
               <label for="nome" class="form-label">Digite seu nome completo</label>
             </div>
@@ -89,6 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
                 id="email"
                 name="email"
                 placeholder="Digite seu e-mail"
+                value= "<?php echo $dados['email'] != '' ? $dados['email'] : '' ?>"
               />
               <label for="email" class="form-label">Digite seu e-mail</label>
             </div>
@@ -98,14 +103,15 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
                 type="text"
                 class="form-control"
                 id="tel"
-                name="tel"
+                name="telefone"
                 placeholder="Digite seu telefone"
+                value=" <?php echo $dados['telefone'] != '' ? $dados['telefone'] : '' ?>"
               />
               <label for="senha" class="form-label">Digite seu telefone</label>
             </div>
             <!-- Botão -->
             <div class="col-12" id="enviar">
-              <input type="submit" name="cad" class="btn btn-primary" value="Cadastrar" />
+              <input type="submit" name="editar" class="btn btn-primary" value="Editar" />
             </div>
           </form>
         </div>

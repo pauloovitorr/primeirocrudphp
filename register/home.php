@@ -68,16 +68,13 @@ $conecte->close();
                         echo '<td>' . $dados_convetido['nome'] . '</td>';
                         echo '<td>' . $dados_convetido['email'] . '</td>';
                         echo '<td>' . $dados_convetido['telefone'] . '</td>';
-                        echo '<td>' . "<form action='./cad_usuario.php' method='post'><input type='hidden' name='id'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Editar'></form> .". '</td>';
+                        echo '<td>' . "<form action='./editar.php' method='get'><input type='hidden' name='id'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Editar'></form> .". '</td>';
                         echo '<td>' . '<form action="" method="post"><input type="submit" class="btn btn-danger" value="Excluir"></form> .'. '</td>'.'</tr>';
                         
                     }
                 }
 
                 ?>
-
-
-
 
             </tbody>
 
