@@ -143,8 +143,13 @@ a {
   }
   #form_container {
     margin: 5% auto;
+    width: 98%;
   }
   #form_container input[type="submit"] {
+    width: 100%;
+  }
+
+  #form_container {
     width: 100%;
   }
 }
