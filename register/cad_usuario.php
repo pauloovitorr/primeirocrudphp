@@ -60,7 +60,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
 
 <body>
 
-    
+</br>
+    <a href="./home.php" class="btn btn btn-secondary" >Voltar</a>
 
 
     <div class="container col-8 col-md-7" id="form_container">
@@ -76,19 +77,19 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
                 class="form-control"
                 id="nome"
                 name="nome"
-                placeholder="Digite seu nome"
+                placeholder="Digite seu nome" required
               />
               <label for="nome" class="form-label">Digite seu nome completo</label>
             </div>
             
             <!-- E-mail -->
             <div class="form-floating mb-3">
-              <input
+              <input 
                 type="email"
                 class="form-control"
                 id="email"
                 name="email"
-                placeholder="Digite seu e-mail"
+                placeholder="Digite seu e-mail" required
               />
               <label for="email" class="form-label">Digite seu e-mail</label>
             </div>
@@ -99,7 +100,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST['id']))
                 class="form-control"
                 id="tel"
                 name="tel"
-                placeholder="Digite seu telefone"
+                placeholder="Digite seu telefone"required
               />
               <label for="senha" class="form-label">Digite seu telefone</label>
             </div>

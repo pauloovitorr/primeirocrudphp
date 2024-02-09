@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background-image: linear-gradient(120deg, rgb(139, 245, 236), rgb(65, 65, 80));
+  background-image: linear-gradient(150deg, rgb(139, 245, 236), rgb(65, 65, 80));
   height: 100vh;
   border: 1px solid transparent
 }
@@ -14,7 +14,7 @@ body {
 #form_container {
   background-color: #fff;
   border-radius: 20px;
-  box-shadow: 0.5px 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0.5px 10px 20px rgba(0, 0, 0, 0.6);
   margin: 8% auto;
   padding: 25px;
 }

@@ -19,6 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $dados = $conecte->query($sql);
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['cod'])) {
+    $cod = $conecte->escape_string($_POST['cod']);
+
+    $sql = "DELETE FROM usuarios WHERE id=$cod";
+
+    $conecte->query($sql);
+
+    header('Location:./home.php');
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['nome']))
+{
+    echo $_GET['nome'];
+}
+
 $conecte->close();
 
 ?>
@@ -48,7 +63,15 @@ $conecte->close();
     <div class="container col-11 col-md-9" id="form_container">
         <h1 class="text-center mt-4">Lista de usuários</h1>
 
-        <table class="table caption-top" style="text-align: center;" >
+        <!-- form de busca -->
+        <form method="get" class="d-flex justify-content-center">
+            <div class="form-group col-5 m-1">
+                <input type="text" class="form-control" id="exampleInputEmail1" name="nome" placeholder="Buscar usuário por nome">
+            </div>
+            <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+        </form>
+
+        <table class="table caption-top" style="text-align: center;">
             <caption>Tabela de usuários</caption>
             <thead>
                 <tr>
@@ -68,15 +91,14 @@ $conecte->close();
                         echo '<td>' . $dados_convetido['nome'] . '</td>';
                         echo '<td>' . $dados_convetido['email'] . '</td>';
                         echo '<td>' . $dados_convetido['telefone'] . '</td>';
-                        echo '<td>' . "<form action='./editar.php' method='get'><input type='hidden' name='id'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Editar'></form> .". '</td>';
-                        echo '<td>' . "<a class='btn btn-danger' href='./home.php?cod={$dados_convetido['id']}'>Excluir</a>". '</td>'.'</tr>';
-    
+                        echo '<td>' . "<form action='./editar.php' method='get'><input type='hidden' name='id'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Editar'></form> ." . '</td>';
+                        echo '<td>' . "<form action='' method='post'><input type='hidden' name='cod'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Excluir'></form> ." . '</td>' . '</tr>';
                     }
                 }
 
                 ?>
 
-                
+
 
             </tbody>
 
