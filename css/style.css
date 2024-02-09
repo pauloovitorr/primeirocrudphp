@@ -1,5 +1,12 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
-  background-color: #fffccd;
+  background-image: linear-gradient(120deg, rgb(139, 245, 236), rgb(65, 65, 80));
+  height: 100vh;
+  border: 1px solid transparent
 }
 
 /* Formulário */
@@ -26,11 +33,11 @@ a {
   text-decoration: underline;
 }
 #form_container a:hover {
-  color: #ff6863;
+  color: white;
 }
 #form_container .form-control {
   border: none;
-  border-bottom: 1px solid #ff6863;
+  border-bottom: 1px solid  #22796d;;
   border-radius: 0;
 }
 #form_container .form-control:focus {
@@ -43,13 +50,13 @@ a {
   color: #222;
 }
 #form_container input[type="submit"] {
-  background-color: #ff6863;
+  background-color:  #22796d;;
   border: none;
   width: 50%;
   border-radius: 20px;
 }
 #form_container input[type="checkbox"]:checked {
-  background-color: #ff6863;
+  background-color:  #22796d;;
   border: none;
 }
 #form_container .form-check-input:focus {
