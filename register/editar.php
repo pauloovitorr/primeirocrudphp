@@ -60,6 +60,8 @@ else
 
 <body>
 
+</br>
+    <a href="./home.php" class="btn btn btn-secondary" >Voltar</a>
 
     <div class="container col-8 col-md-7" id="form_container">
 

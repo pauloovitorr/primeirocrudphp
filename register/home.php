@@ -19,6 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $dados = $conecte->query($sql);
 }
 
+
+if($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['nome']))
+{
+    $nome = $_GET['nome'];
+
+    $sql = "SELECT * FROM usuarios WHERE nome LIKE '%$nome%'";
+
+    $dados =  $conecte->query($sql);
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['cod'])) {
     $cod = $conecte->escape_string($_POST['cod']);
 
@@ -28,10 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['cod'])) {
 
     header('Location:./home.php');
 }
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['sair'])) {
 
-if($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['nome']))
-{
-    echo $_GET['nome'];
+
+    unset($_SESSION['email']);
+    
+    session_destroy();
+
+    header('Location:' . '../index.php');
+
 }
 
 $conecte->close();
@@ -57,7 +71,12 @@ $conecte->close();
 
 <body>
 
+</br>
 
+
+    <form method="get">
+        <button type="submit" id="btnsair" name="sair" value="sair" class="btn btn btn-secondary">Sair</button>
+    </form>
 
 
     <div class="container col-11 col-md-9" id="form_container">
@@ -91,9 +110,13 @@ $conecte->close();
                         echo '<td>' . $dados_convetido['nome'] . '</td>';
                         echo '<td>' . $dados_convetido['email'] . '</td>';
                         echo '<td>' . $dados_convetido['telefone'] . '</td>';
-                        echo '<td>' . "<form action='./editar.php' method='get'><input type='hidden' name='id'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Editar'></form> ." . '</td>';
-                        echo '<td>' . "<form action='' method='post'><input type='hidden' name='cod'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit' class='btn btn-success' value='Excluir'></form> ." . '</td>' . '</tr>';
+                        echo '<td>' . "<form action='./editar.php' method='get'><input type='hidden' name='id'  value=\"" . $dados_convetido['id'] . "\"><input id='editar' type='submit'  value='Editar'></form> ." . '</td>';
+                        echo '<td>' . "<form action='' method='post'><input type='hidden' name='cod'  value=\"" . $dados_convetido['id'] . "\"><button id='excluir' type={'submit'}>Excluir</button></form> ." . '</td>' . '</tr>';
                     }
+                }
+                else
+                {
+                    echo '<h1> Sem usuário </h1>';
                 }
 
                 ?>

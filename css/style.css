@@ -5,7 +5,8 @@
 }
 body {
   background-image: linear-gradient(150deg, rgb(139, 245, 236), rgb(65, 65, 80));
-  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
   border: 1px solid transparent
 }
 
@@ -32,9 +33,7 @@ a {
 #termos {
   text-decoration: underline;
 }
-#form_container a:hover {
-  color: white;
-}
+
 #form_container .form-control {
   border: none;
   border-bottom: 1px solid  #22796d;;
@@ -52,9 +51,22 @@ a {
 #form_container input[type="submit"] {
   background-color:  #22796d;;
   border: none;
-  width: 50%;
+  width: 60%;
   border-radius: 20px;
+  padding: 7px;
+  color:  white;
 }
+
+#excluir{
+  background-color: red;
+  border: none;
+  width: 60%;
+  border-radius: 20px;
+  padding: 7px;
+  color:  white;
+}
+
+
 #form_container input[type="checkbox"]:checked {
   background-color:  #22796d;;
   border: none;
@@ -84,6 +96,7 @@ a {
     width: 100%;
   }
 }
+
 @media (max-width: 768px) {
   .img-fluid {
     background-image: url(../img/mobile_login.svg);
@@ -151,4 +164,9 @@ a {
 /* Termos */
 .termos {
   margin: 30px 0px;
+}
+
+#btnsair{
+  position: relative;
+  left: 80%;
 }
