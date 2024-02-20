@@ -22,13 +22,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_
 
   $resultad = $dados->get_result();
 
+  
+
+  
+
   if($resultad->num_rows > 0)
   {
     $user =  $resultad->fetch_assoc();
 
     if(password_verify($senha, $user['senha']))
     {
+    
       $_SESSION['email'] = $email;
+      $_SESSION['nome'] = $user['nome'];
       header('Location:register/home.php');
     }
     else
@@ -61,6 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    
     <!-- JavaScript Bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
